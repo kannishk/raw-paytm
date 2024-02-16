@@ -46,6 +46,12 @@ userRouter.post("signup", async (req, res) => {
     lastName: req.body.lastName,
   });
   const userId = user._id;
+
+  await Account.create({
+    userId,
+    balance: 1 + Math.random() * 1000,
+  });
+
   const token = jwt.sign(
     {
       userId,
@@ -135,4 +141,4 @@ userRouter.get("/bulk", async (req, res) => {
   });
 });
 
-exports.module = userRouter;
+module.exports = userRouter;
